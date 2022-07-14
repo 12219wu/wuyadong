@@ -1,7 +1,7 @@
 {
-  "Name":"zinx server Demo",
+  "Name":"zinx_jtt808",
   "Host":"127.0.0.1",
-  "TcpPort":8999,
+  "TcpPort":8080,
   "MaxConn":3,
   "WorkerPoolSize":10,
   "LogDir": "./mylog",
