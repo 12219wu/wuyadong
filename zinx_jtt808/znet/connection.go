@@ -8,6 +8,7 @@ import (
 	"net"
 	"sync"
 	"time"
+	"zinx_jtt808/zlog"
 
 	"zinx_jtt808/utils"
 	"zinx_jtt808/ziface"
@@ -82,8 +83,8 @@ func (c *Connection) StartWriter() {
 
 //StartReader 读消息Goroutine，用于从客户端中读取数据
 func (c *Connection) StartReader() {
-	fmt.Println("[Reader Goroutine is running]")
-	defer fmt.Println(c.RemoteAddr().String(), "[conn Reader exit!]")
+	zlog.Info("[Reader Goroutine is running]")
+	defer zlog.Info(c.RemoteAddr().String(), "[conn Reader exit!]")
 	defer c.Stop()
 
 	// 创建拆包解包的对象

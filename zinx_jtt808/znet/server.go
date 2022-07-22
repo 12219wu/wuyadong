@@ -3,6 +3,7 @@ package znet
 import (
 	"fmt"
 	"net"
+	"zinx_jtt808/zlog"
 
 	"zinx_jtt808/utils"
 	"zinx_jtt808/ziface"
@@ -68,7 +69,7 @@ func NewServer(opts ...Option) ziface.IServer {
 
 //Start 开启网络服务
 func (s *Server) Start() {
-	fmt.Printf("[START] Server name: %s,listenner at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port)
+	zlog.Info(fmt.Sprintf("[START] Server name: %s,listenner at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port))
 
 	//开启一个go去做服务端Listener业务
 	go func() {
@@ -89,7 +90,7 @@ func (s *Server) Start() {
 		}
 
 		//已经监听成功
-		fmt.Println("start Zinx server  ", s.Name, " succ, now listenning...")
+		zlog.Info("start Zinx server  ", s.Name, " succ, now listenning...")
 
 		//TODO server.go 应该有一个自动生成ID的方法
 		var cID uint32
@@ -181,14 +182,18 @@ func (s *Server) Packet() ziface.Packet {
 
 func printLogo() {
 	fmt.Println(zinxLogo)
-	fmt.Println(topLine)
-	fmt.Println(fmt.Sprintf("%s [Github] https://github.com/aceld                 %s", borderLine, borderLine))
-	fmt.Println(fmt.Sprintf("%s [tutorial] https://www.kancloud.cn/aceld/zinx     %s", borderLine, borderLine))
-	fmt.Println(bottomLine)
-	fmt.Printf("[Zinx] Version: %s, MaxConn: %d, MaxPacketSize: %d\n",
+	//fmt.Println(topLine)
+	//fmt.Println(fmt.Sprintf("%s [Github] https://github.com/aceld                 %s", borderLine, borderLine))
+	//fmt.Println(fmt.Sprintf("%s [tutorial] https://www.kancloud.cn/aceld/zinx     %s", borderLine, borderLine))
+	//fmt.Println(bottomLine)
+	//fmt.Printf("[Zinx] Version: %s, MaxConn: %d, MaxPacketSize: %d\n",
+	//	utils.GlobalObject.Version,
+	//	utils.GlobalObject.MaxConn,
+	//	utils.GlobalObject.MaxPacketSize)
+	zlog.Info(fmt.Sprintf("[Zinx] Version: %s, MaxConn: %d, MaxPacketSize: %d\n",
 		utils.GlobalObject.Version,
 		utils.GlobalObject.MaxConn,
-		utils.GlobalObject.MaxPacketSize)
+		utils.GlobalObject.MaxPacketSize))
 }
 
 func init() {

@@ -1,0 +1,8 @@
+2022/07/20 17:23:57 [INFO]server.go:193: [Zinx] Version: V1.0, MaxConn: 3, MaxPacketSize: 4096
+
+2022/07/20 17:24:31 [INFO]server.go:193: [Zinx] Version: V1.0, MaxConn: 3, MaxPacketSize: 4096
+
+2022/07/20 17:25:57 [INFO]server.go:193: [Zinx] Version: V1.0, MaxConn: 3, MaxPacketSize: 4096
+
+2022/07/20 17:25:57 [INFO]server.go:72: [START] Server name: zinx_jtt808,listenner at IP: 127.0.0.1, Port 8080 is starting
+
