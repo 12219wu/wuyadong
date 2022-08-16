@@ -1,6 +1,7 @@
 package znet
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -29,7 +30,9 @@ type Connection struct {
 	cancel context.CancelFunc
 	//有缓冲管道，用于读、写两个goroutine之间的消息通信
 	msgBuffChan chan []byte
-
+	//20220728 wyd 存储
+	// 数据读缓存
+	buf bytes.Buffer
 	sync.RWMutex
 	//链接属性
 	property map[string]interface{}
@@ -86,6 +89,9 @@ func (c *Connection) StartReader() {
 	zlog.Info("[Reader Goroutine is running]")
 	defer zlog.Info(c.RemoteAddr().String(), "[conn Reader exit!]")
 	defer c.Stop()
+	var (
+		bts []byte
+	)
 
 	// 创建拆包解包的对象
 	for {
@@ -93,6 +99,14 @@ func (c *Connection) StartReader() {
 		case <-c.ctx.Done():
 			return
 		default:
+			if _, err := io.ReadFull(c.Conn, bts); err != nil {
+				zlog.Error("read msg data error ", err)
+				return
+			}
+			c.buf.Write(bts)
+			for i, bit := range c.buf.Bytes() {
+
+			}
 
 			//读取客户端的Msg head
 			headData := make([]byte, c.TCPServer.Packet().GetHeadLen())
