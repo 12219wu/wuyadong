@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	client.SetUpCodec()
+	client.ChannelInitializer()
 	beego.Run()
 }
