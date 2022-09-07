@@ -10,6 +10,64 @@ import (
 // 协议包体最大字节数
 const maxBodySize = int(1<<10 - 1)
 
+// JTT808协议版本号
+const (
+	// JTT808-2011版本号
+	version2011 = byte(0)
+	// JTT808-2019版本号
+	version2019 = byte(1)
+)
+
+// Output 输出消息
+type Output interface {
+	msgID() uint16
+	writeTo(*bytes.Buffer)
+	base() Output
+}
+
+// OutputMark 输出消息标签
+type OutputMark struct {
+	// 消息ID
+	ID uint16
+}
+
+func (m *OutputMark) msgID() uint16 {
+	return m.ID
+}
+
+func (m *OutputMark) base() Output {
+	return nil
+}
+
+// Input 输入消息
+type Input interface {
+	msgID() uint16
+	setIDAndNumber(uint16, uint16)
+	readBy(*bytes.Buffer)
+	base() Input
+}
+
+// InputMark 输入包标签
+type InputMark struct {
+	// 消息ID
+	ID uint16
+	// 消息流水号
+	Number uint16
+}
+
+func (m *InputMark) msgID() uint16 {
+	return m.ID
+}
+
+func (m *InputMark) setIDAndNumber(id uint16, num uint16) {
+	m.ID = id
+	m.Number = num
+}
+
+func (m *InputMark) base() Input {
+	return nil
+}
+
 // 消息体属性
 type msgAttr uint16
 
